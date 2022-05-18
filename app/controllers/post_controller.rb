@@ -408,6 +408,10 @@ class PostController < ApplicationController
       else
         @post = @post.find(params[:id])
       end
+
+      unless CONFIG['can_see_post'].call(@current_user, @post) then
+        fail ActiveRecord::RecordNotFound, "not sufficient privileges"
+      end
     rescue ActiveRecord::RecordNotFound, ActiveRecord::StatementInvalid
       respond_to do |format|
         format.html { render :action => "show_empty", :status => 404 }
