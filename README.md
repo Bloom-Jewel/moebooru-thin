@@ -18,24 +18,17 @@ As this is ongoing project, there will be more changes on requirement as this pr
 * ImageMagick
 * And various other requirement for the gems (check `Gemfile` for the list)
 
-On RHEL5 (and 6), it goes like this (outdated list):
+On Debian, it goes like this:
 
-* gcc
-* ffmpeg
-* gcc-c++
-* ImageMagick
-* jhead
-* libxslt-devel
-* libyaml-devel
-* git
-* openssl-devel
-* pcre-devel
-* postgresql94-devel
-* postgresql94-server
-* readline-devel
-* libmagic-devel
+```
+gcc ffmpeg gcc-c++ ImageMagick jhead libxslt-devel libyaml-devel git
+openssl-devel pcre-devel postgre94-devel postgresql94-server readline-devel libmagic-devel
+libvips42
+```
 
 Base, EPEL, and postgresql official repositories contain all the requirements.
+
+Note: `postgresql` related package can follow up your current installation.
 
 Installation
 ------------
@@ -50,10 +43,14 @@ After initializing PostgreSQL database, create user for moebooru with `createdb`
 ### Rails Setup
 
 * Run `bundle install`
-* Create `config/database.yml` and `config/local_config.rb`
+* Create `config/local_config.rb`
 * Initialize database with `bundle exec rake db:reset` (there will be some errors reported which is expected)
 * Run `bundle exec rake db:migrate`
 * Start the server (`bundle exec unicorn` or `bundle exec puma` if using JRuby/Rubinius)
+
+### Reverse Proxy (Nginx) Note
+
+* Do not forget to set `X-Forwarded-Host` field. This may break a lot if you forgot.
 
 Configuration
 -------------
