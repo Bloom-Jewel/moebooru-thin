@@ -125,7 +125,7 @@
 
 <div style="float: left; width: 60em;">
   <table width="100%">
-    <% CONFIG["tag_types"].select {|k, v| k =~ /^[A-Z]/ && k != "General" && k != "Faults"}.each do |name, value| %>
+    <% CONFIG["tag_types"].select {|k, v| k =~ /^[A-Z]/ && !k.in?(CONFIG['tag_meta']) }.each do |name, value| %>
       <tr>
         <th><%=t :user_fav2 %><%= name.pluralize %></th>
         <td><%= @user.voted_tags(:type => value).map {|tag| link_to tag["tag"].tr("_", " "), :controller => "post", :action => "index", :tags => "vote:3:#{@user.name} #{tag['tag']} order:vote"}.join(", ").html_safe %></td>
@@ -135,7 +135,7 @@
       <th><%=t :user_uploaded_tags %></th>
       <td><%= @user.uploaded_tags.map {|tag| link_to tag["tag"].tr("_", " "), :controller => "post", :action => "index", :tags => "user:#{@user.name} #{tag['tag']}"}.join(", ").html_safe %></td>
     </tr>
-    <% CONFIG["tag_types"].select {|k, v| k =~ /^[A-Z]/ && k != "General" && k != "Faults"}.each do |name, value| %>
+    <% CONFIG["tag_types"].select {|k, v| k =~ /^[A-Z]/ && !k.in?(CONFIG['tag_meta']) }.each do |name, value| %>
       <tr>
         <th><%=t :user_uploaded %><%= name.pluralize %></th>
         <td><%= @user.uploaded_tags(:type => value).map {|tag| link_to tag["tag"].tr("_", " "), :controller => "post", :action => "index", :tags => "user:#{@user.name} #{tag['tag']}"}.join(", ").html_safe %></td>
