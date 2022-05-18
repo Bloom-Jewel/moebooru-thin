@@ -4,7 +4,11 @@ class String
   # Strip out invalid utf8
   def to_valid_utf8
     str = self
-    str.force_encoding Encoding::UTF_8
+    if frozen? then
+      str = str.encode Encoding::UTF_8
+    else
+      str.force_encoding Encoding::UTF_8
+    end
     str.scrub("?").delete("\u0000")
   end
 
