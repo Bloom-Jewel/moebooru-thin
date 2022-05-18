@@ -33,6 +33,11 @@ class ApplicationController < ActionController::Base
     end
 
     def set_current_user
+      if CONFIG['machine_ips'].any? do |mip| mip == request.remote_ip end
+      #  @current_user = User.first
+      #  session[:user_id] = @current_user.id
+      end
+
       if Rails.env.test? && session[:user_id]
         @current_user = User.find_by(:id => session[:user_id])
       end
