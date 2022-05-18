@@ -1,6 +1,7 @@
 module Tag::ParseMethods
   module ClassMethods
     def scan_query(query)
+      return [] unless query
       query.to_s.to_valid_utf8.downcase.split.uniq
     end
 
