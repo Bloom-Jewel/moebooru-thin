@@ -47,10 +47,6 @@ gem "streamio-ffmpeg"
 # The git 1.2.x contains webm; this is what we want
 gem "file_signature", :git => 'http://github.com/distler/file_signature.git'
 
-group :development do
-  gem "puma"
-end
-
 group :test, :development do
   gem "rspec"
   gem "rspec-rails"
@@ -66,6 +62,9 @@ group :standalone do
     gem "unicorn-worker-killer", :require => false
     gem "gctools"
   end
+end
+
+group :development, :standalone do
   gem "puma", :platforms => [:jruby, :rbx, :mswin], :require => false
 end
 
